@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Code Correction Services</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+        }
+        .nav a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #333;
+            transition: background-color 0.3s ease;
+        }
+        .nav a:hover {
+            background-color: #555;
+        }
+        .main-content {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 25px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .code-editor {
+            margin-bottom: 25px;
+        }
+        .code-editor textarea {
+            width: 100%;
+            height: 250px;
+            padding: 15px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-family: monospace;
+        }
+        .services {
+            background-color: #e0e0e0;
+            padding: 25px;
+            border-radius: 8px;
+        }
+        .service {
+            margin-bottom: 20px;
+        }
+        .service img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+        .footer .contact-info p {
+            margin: 10px 0;
+        }
+        #debug-btn {
+            background-color: #4CAF50;
+            color: #fff;
+            padding: 10px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+        #debug-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const debugButton = document.getElementById('debug-btn');
+            debugButton.addEventListener('click', () => {
+                const codeInput = document.getElementById('code-input').value;
+                // Add your code analysis logic here
+const codeInput = document.getElementById('code-input');
+const debugButton = document.getElementById('debug-btn');
+const debugOutput = document.getElementById('output');
+
+debugButton.addEventListener('click', async () => {
+    const code = codeInput.value;
+    debugOutput.innerText = 'Analyzing...'; // Loading state
+
+    try {
+        const response = await fetch('/debug', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code }),
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const result = await response.json();
+        debugOutput.innerText = result.message;
+
+    } catch (error) {
+        debugOutput.innerText = `Error: ${error.message}`;
+    }
+});
+
+                document.getElementById('output').innerText = 'Code analysis results will be displayed here.';
+            });
+        });
+    </script>
+</head>
+<body>
+    <header class="header">
+        <h1>AI Code Correction Services</h1>
+        <nav class="nav">
+            <a href="#">Home</a>
+            <a href="#">Services</a>
+            <a href="#">More</a>
+        </nav>
+    </header>
+    <main class="main-content">
+        <h2>Welcome to AI Code Correction</h2>
+        <p>Our service utilizes advanced AI technology to help you correct your code efficiently.</p>
+        <div class="code-editor">
+            <textarea id="code-input" placeholder="Enter your code here"></textarea>
+            <button id="debug-btn">Debug</button>
+            <div id="output"></div>
+        </div>
+        <section class="services">
+            <h2>Our Services</h2>
+            <div class="service">
+                <img src="path_to_code_image.jpg" alt="Code Correction">
+                <h4>Code Correction</h4>
+                <p>Our advanced AI detects and fixes errors in your code, providing you with accurate and efficient solutions.</p>
+                <p><strong>Reviews:</strong> "A lifesaver for my coding projects!" - Jane Doe</p>
+            </div>
+            <div class="service">
+                <img src="path_to_analysis_image.jpg" alt="Code Analysis">
+                <h4>Code Analysis</h4>
+                <p>We offer detailed analysis of your code to identify potential issues and optimize performance.</p>
+                <p><strong>Reviews:</strong> "Thorough and insightful analysis." - John Smith</p>
+            </div>
+            <div class="service">
+                <img src="path_to_optimization_image.jpg" alt="Code Optimization">
+                <h4>Code Optimization</h4>
+                <p>Improve the efficiency and performance of your code with our AI-powered optimization techniques.</p>
+                <p><strong>Reviews:</strong> "Transformed my code's performance!" - Alex Johnson</p>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2024 AI Code Analysis and Correction</p>
+        <div class="contact-info">
+            <p>Email: houdaboumahdi3@gmail.com</p>
+            <p>Connect with us on social media: Instagram, Twitter, Telegram</p>
+        </div>
+    </footer>
+</body>
+</html>
