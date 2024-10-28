@@ -95,12 +95,6 @@
         #debug-btn:hover {
             background-color: #45a049;
         }
-        <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 20px;
-        }
         h2 {
             color: #333;
             border-bottom: 2px solid #007BFF;
@@ -108,9 +102,6 @@
         }
         h3 {
             color: #007BFF;
-        }
-        p {
-            color: #555;
         }
         ul {
             list-style-type: none;
@@ -125,41 +116,46 @@
         }
     </style>
     <script>
-      <script>
-const codeFileInput = document.getElementById('code-file');
-const analyzeButton = document.getElementById('analyze-button');
-const analysisResultsDiv = document.getElementById('analysis-results');
+        document.addEventListener('DOMContentLoaded', () => {
+            const debugButton = document.getElementById('debug-btn');
+            debugButton.addEventListener('click', () => {
+                const codeInput = document.getElementById('code-input').value;
+                document.getElementById('output').innerText = 'Code analysis results will be displayed here.';
+            });
 
-analyzeButton.addEventListener('click', async () => {
-  const codeFile = codeFileInput.files[0];
-  const code = await codeFile.text();
-  const apiUrl = 'https://api.synopsys.com/ai-code-analysis';
-  const apiKey = 'YOUR_API_KEY';
-  
-  fetch(apiUrl, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${apiKey}`
-    },
-    body: JSON.stringify({ code })
-  })
-  .then(response => response.json())
-  .then(data => {
-    const issues = data.issues;
-    const correctedCode = data.corrected_code;
-    analysisResultsDiv.innerHTML = `
-      <h2>Analysis Results</h2>
-      <ul>
-        ${issues.map(issue => `<li>${issue.message}</li>`).join('')}
-      </ul>
-      <h2>Corrected Code</h2>
-      <pre><code>${correctedCode}</code></pre>
-    `;
-  });
-});
-</script>
+            const codeFileInput = document.getElementById('code-file');
+            const analyzeButton = document.getElementById('analyze-button');
+            const analysisResultsDiv = document.getElementById('analysis-results');
 
+            analyzeButton.addEventListener('click', async () => {
+                const codeFile = codeFileInput.files[0];
+                const code = await codeFile.text();
+                const apiUrl = 'https://api.synopsys.com/ai-code-analysis';
+                const apiKey = 'YOUR_API_KEY';
+
+                fetch(apiUrl, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${apiKey}`
+                    },
+                    body: JSON.stringify({ code })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const issues = data.issues;
+                    const correctedCode = data.corrected_code;
+                    analysisResultsDiv.innerHTML = `
+                        <h2>Analysis Results</h2>
+                        <ul>
+                            ${issues.map(issue => `<li>${issue.message}</li>`).join('')}
+                        </ul>
+                        <h2>Corrected Code</h2>
+                        <pre><code>${correctedCode}</code></pre>
+                    `;
+                });
+            });
+        });
     </script>
 </head>
 <body>
@@ -174,21 +170,25 @@ analyzeButton.addEventListener('click', async () => {
     <main class="main-content">
         <h2>Welcome to AI Code Correction</h2>
         <p>Our service utilizes advanced AI technology to help you correct your code efficiently.</p>
-        <h2>About Code Corrector</h2>
-    <p>At Code Corrector, we harness the power of artificial intelligence to revolutionize the coding experience. Our platform intelligently detects and rectifies errors, ensuring your code runs smoothly and efficiently.</p>
-        <h3>Streamline Your Coding with AI Precision</h3>
-    <p>Our platform intelligently detects and rectifies code errors, ensuring seamless functionality. Experience the future of coding with AI-driven insights that elevate your projects.</p>
-    <ul>
-        <li><strong>Detect</strong>: Identify errors with advanced algorithms.</li>
-        <li><strong>Correct</strong>: Automatically fix bugs for optimal performance.</li>
-    </ul>
         <div class="code-editor">
             <textarea id="code-input" placeholder="Enter your code here"></textarea>
             <button id="debug-btn">Debug</button>
             <div id="output"></div>
         </div>
         <section class="services">
+            <h2>About Code Corrector</h2>
+            <p>At Code Corrector, we harness the power of artificial intelligence to revolutionize the coding experience. Our platform intelligently detects and rectifies errors, ensuring your code runs smoothly and efficiently.</p>
+
             <h2>Our Services</h2>
+            <p>Your existing paragraph content here...</p>
+
+            <h3>Streamline Your Coding with AI Precision</h3>
+            <p>Our platform intelligently detects and rectifies code errors, ensuring seamless functionality. Experience the future of coding with AI-driven insights that elevate your projects.</p>
+            <ul>
+                <li><strong>Detect</strong>: Identify errors with advanced algorithms.</li>
+                <li><strong>Correct</strong>: Automatically fix bugs for optimal performance.</li>
+            </ul>
+
             <div class="service">
                 <img src="path_to_code_image.jpg" alt="Code Correction">
                 <h4>Code Correction</h4>
@@ -213,8 +213,4 @@ analyzeButton.addEventListener('click', async () => {
         <p>&copy; 2024 AI Code Analysis and Correction</p>
         <div class="contact-info">
             <p>Email: houdaboumahdi3@gmail.com</p>
-            <p>Connect with us on social media: Instagram, Twitter, Telegram</p>
-        </div>
-    </footer>
-</body>
-</html>
+            <p>Connect with us on social media: Instagram, Twitter
