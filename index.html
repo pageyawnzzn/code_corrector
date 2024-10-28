@@ -95,65 +95,49 @@
         #debug-btn:hover {
             background-color: #45a049;
         }
-        h2 {
-            color: #333;
-            border-bottom: 2px solid #007BFF;
-            padding-bottom: 5px;
-        }
-        h3 {
-            color: #007BFF;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        ul li {
-            background: #007BFF;
-            color: #fff;
-            padding: 10px;
-            margin-bottom: 5px;
-            border-radius: 5px;
-        }
     </style>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const debugButton = document.getElementById('debug-btn');
             debugButton.addEventListener('click', () => {
                 const codeInput = document.getElementById('code-input').value;
+                // Add your code analysis logic here
+                <script>
+const codeFileInput = document.getElementById('code-file');
+const analyzeButton = document.getElementById('analyze-button');
+const analysisResultsDiv = document.getElementById('analysis-results');
+
+analyzeButton.addEventListener('click', async () => {
+  const codeFile = codeFileInput.files[0];
+  const code = await codeFile.text();
+  const apiUrl = 'https://api.synopsys.com/ai-code-analysis';
+  const apiKey = 'YOUR_API_KEY';
+  
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({ code })
+  })
+  .then(response => response.json())
+  .then(data => {
+    const issues = data.issues;
+    const correctedCode = data.corrected_code;
+    analysisResultsDiv.innerHTML = `
+      <h2>Analysis Results</h2>
+      <ul>
+        ${issues.map(issue => `<li>${issue.message}</li>`).join('')}
+      </ul>
+      <h2>Corrected Code</h2>
+      <pre><code>${correctedCode}</code></pre>
+    `;
+  });
+});
+</script>
+
                 document.getElementById('output').innerText = 'Code analysis results will be displayed here.';
-            });
-
-            const codeFileInput = document.getElementById('code-file');
-            const analyzeButton = document.getElementById('analyze-button');
-            const analysisResultsDiv = document.getElementById('analysis-results');
-
-            analyzeButton.addEventListener('click', async () => {
-                const codeFile = codeFileInput.files[0];
-                const code = await codeFile.text();
-                const apiUrl = 'https://api.synopsys.com/ai-code-analysis';
-                const apiKey = 'YOUR_API_KEY';
-
-                fetch(apiUrl, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${apiKey}`
-                    },
-                    body: JSON.stringify({ code })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const issues = data.issues;
-                    const correctedCode = data.corrected_code;
-                    analysisResultsDiv.innerHTML = `
-                        <h2>Analysis Results</h2>
-                        <ul>
-                            ${issues.map(issue => `<li>${issue.message}</li>`).join('')}
-                        </ul>
-                        <h2>Corrected Code</h2>
-                        <pre><code>${correctedCode}</code></pre>
-                    `;
-                });
             });
         });
     </script>
@@ -171,31 +155,23 @@
         <h2>Welcome to AI Code Correction</h2>
         <p>Our service utilizes advanced AI technology to help you correct your code efficiently.</p>
         
-        <section class="services">
-            <h2>About Code Corrector</h2>
-            <p>At Code Corrector, we harness the power of artificial intelligence to revolutionize the coding experience. Our platform intelligently detects and rectifies errors, ensuring your code runs smoothly and efficiently.</p>
+        <!-- About Section -->
+        <h2>About Code Corrector</h2>
+        <p>At Code Corrector, we harness the power of artificial intelligence to revolutionize the coding experience. Our platform intelligently detects and rectifies errors, ensuring your code runs smoothly and efficiently.</p>
 
-            <h2>Our Services</h2>
-            <p>Your existing paragraph content here...</p>
-
-            <h3>Streamline Your Coding with AI Precision</h3>
-            <p>Our platform intelligently detects and rectifies code errors, ensuring seamless functionality. Experience the future of coding with AI-driven insights that elevate your projects.</p>
-            <ul>
-                <li><strong>Detect</strong>: Identify errors with advanced algorithms.</li>
-                <li><strong>Correct</strong>: Automatically fix bugs for optimal performance.</li>
-            </ul>
-<div class="code-editor">
+        <div class="code-editor">
             <textarea id="code-input" placeholder="Enter your code here"></textarea>
             <button id="debug-btn">Debug</button>
             <div id="output"></div>
+        </div>
+        <section class="services">
+            <h2>Our Services</h2>
             <div class="service">
                 <img src="path_to_code_image.jpg" alt="Code Correction">
                 <h4>Code Correction</h4>
                 <p>Our advanced AI detects and fixes errors in your code, providing you with accurate and efficient solutions.</p>
                 <p><strong>Reviews:</strong> "A lifesaver for my coding projects!" - Jane Doe</p>
             </div>
-            
-        </div>
             <div class="service">
                 <img src="path_to_analysis_image.jpg" alt="Code Analysis">
                 <h4>Code Analysis</h4>
@@ -209,9 +185,21 @@
                 <p><strong>Reviews:</strong> "Transformed my code's performance!" - Alex Johnson</p>
             </div>
         </section>
+
+        <!-- Side Content -->
+        <h3>Streamline Your Coding with AI Precision</h3>
+        <p>Our platform intelligently detects and rectifies code errors, ensuring seamless functionality. Experience the future of coding with AI-driven insights that elevate your projects.</p>
+        <ul>
+            <li><strong>Detect</strong>: Identify errors with advanced algorithms.</li>
+            <li><strong>Correct</strong>: Automatically fix bugs for optimal performance.</li>
+        </ul>
     </main>
     <footer class="footer">
         <p>&copy; 2024 AI Code Analysis and Correction</p>
         <div class="contact-info">
             <p>Email: houdaboumahdi3@gmail.com</p>
-            <p>Connect with us on social media: Instagram, Twitter
+            <p>Connect with us on social media: Instagram, Twitter, Telegram</p>
+        </div>
+    </footer>
+</body>
+</html>
