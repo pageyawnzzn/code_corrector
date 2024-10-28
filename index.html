@@ -97,41 +97,41 @@
         }
     </style>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const debugButton = document.getElementById('debug-btn');
-            debugButton.addEventListener('click', () => {
-                const codeInput = document.getElementById('code-input').value;
-                // Add your code analysis logic here
-const codeInput = document.getElementById('code-input');
-const debugButton = document.getElementById('debug-btn');
-const debugOutput = document.getElementById('output');
+      <script>
+const codeFileInput = document.getElementById('code-file');
+const analyzeButton = document.getElementById('analyze-button');
+const analysisResultsDiv = document.getElementById('analysis-results');
 
-debugButton.addEventListener('click', async () => {
-    const code = codeInput.value;
-    debugOutput.innerText = 'Analyzing...'; // Loading state
-
-    try {
-        const response = await fetch('/debug', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code }),
-        });
-
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-
-        const result = await response.json();
-        debugOutput.innerText = result.message;
-
-    } catch (error) {
-        debugOutput.innerText = `Error: ${error.message}`;
-    }
+analyzeButton.addEventListener('click', async () => {
+  const codeFile = codeFileInput.files[0];
+  const code = await codeFile.text();
+  const apiUrl = 'https://api.synopsys.com/ai-code-analysis';
+  const apiKey = 'YOUR_API_KEY';
+  
+  fetch(apiUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    },
+    body: JSON.stringify({ code })
+  })
+  .then(response => response.json())
+  .then(data => {
+    const issues = data.issues;
+    const correctedCode = data.corrected_code;
+    analysisResultsDiv.innerHTML = `
+      <h2>Analysis Results</h2>
+      <ul>
+        ${issues.map(issue => `<li>${issue.message}</li>`).join('')}
+      </ul>
+      <h2>Corrected Code</h2>
+      <pre><code>${correctedCode}</code></pre>
+    `;
+  });
 });
+</script>
 
-                document.getElementById('output').innerText = 'Code analysis results will be displayed here.';
-            });
-        });
     </script>
 </head>
 <body>
